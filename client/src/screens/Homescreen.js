@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios";
 import Room from "../components/Kamra"
+
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import { DatePicker, Space } from 'antd';
+
+const { RangePicker } = DatePicker;
 function Homescreen() {
   const [rooms, setrooms] = useState([])
   const [loading, setloading] = useState()
@@ -25,6 +29,11 @@ function Homescreen() {
     }
   return (
     <div className="container">
+      <div className="row">
+        <div className="col-md-3">
+        <RangePicker />
+        </div>
+      </div>
      <div className="row justify-content-center mt-5"> 
         {loading ? (
           <h1><Loader/></h1>) : rooms.length>1 ? (
