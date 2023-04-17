@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Success from "../components/Success";
@@ -17,7 +17,7 @@ function Register() {
   
 
   async function register() {
-    if (password == cpassword) {
+    if (password === cpassword) {
       const user = {
         name,
         email,
@@ -49,7 +49,7 @@ function Register() {
 
   return (
     <div>
-      {loading && (<Loader/>)}
+      {loading && (<Loader loading={loading}/>)}
       {error && (<Error/>)}
      
       <div className="row justify-content-center mt-5">

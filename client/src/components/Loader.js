@@ -1,18 +1,15 @@
 
 import React, { useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
-function Loader() {
- let [loading, setLoading] = useState(true);
-  let [color, setColor] = useState("#ffffff");
-    
-        
-      
-     return (
+function Loader({loading}) {
+ //let [loading, setLoading] = useState(true);
+  
+      return (
       <div className={{marginTop:'150px'}}>
       <div className="sweet-loading ">
       
 
-      <HashLoader class
+      <HashLoader 
         color='#000000'
         loading={loading}
         cssOverride=''
@@ -21,7 +18,7 @@ function Loader() {
       />
     </div></div>
     
-  )
+  );
 }
 
-export default Loader
+export default Loader;

@@ -6,11 +6,11 @@ import Error from "../components/Error";
 function Bookingscreen({match}) {
   const [room, setrooms] = useState();
   const [loading, setloading] = useState(true);
-  const [error, seterror] = useState();
+ 
   let {roomid} = useParams();
-   useEffect( () => {
-    funck();
-  }, []);
+
+ 
+
   const funck =async() =>{
     try {
       setloading(true);
@@ -21,9 +21,12 @@ function Bookingscreen({match}) {
       
       
       setloading(false);
-      seterror(true);
+     
     }
   }
+  useEffect( () => {
+    funck();
+  });
   return (
     <div className="m-5">
      
@@ -33,7 +36,7 @@ function Bookingscreen({match}) {
            
            <div className="col-md-5">
             <h1>{room.name}</h1>
-            <img src={room.imageurls[0]} className="bbigimg"/>
+            <img src={room.imageurls[0]} className="bbigimg" alt=""/>
             </div>
 
             <div className="col-md-5" ><b>

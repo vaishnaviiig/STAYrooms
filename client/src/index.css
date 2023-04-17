@@ -20,7 +20,7 @@ code {
   color:white !important;
 }
 .navbar-brand{
-  color: white;
+  color: white!important;
 }
 .navbar-nav{
   margin-left: auto !important;

@@ -1,7 +1,8 @@
 import React from "react";
 
 function Navbar() {
-  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const user =( JSON.parse(localStorage.getItem("currentUser")))=== null ? {} : JSON.parse(localStorage.getItem("currentUser"))
+
   function logout(){
     localStorage.removeItem("currentUser");
     window.locaton.href='/login';
@@ -9,8 +10,8 @@ function Navbar() {
   return (
     <div>
       <nav class="navbar navbar-expand-lg ">
-        <a class="navbar-brand" href="#">
-          {" "}
+        <a class="navbar-brand" href="/">
+          
           STAYrooms
         </a>
         <button
@@ -43,7 +44,7 @@ function Navbar() {
                     class="dropdown-menu"
                     aria-labelledby="dropdownMenuButton"
                   >
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="/">
                     Bookings
                     </a>
                     <a class="dropdown-item" href="/register" onClick={logout}>
@@ -54,10 +55,10 @@ function Navbar() {
               </>
             ) : (
               <>
-                {" "}
+               
                 <li class="nav-item active">
                   <a class="nav-link" href="/register">
-                    {" "}
+                    
                     Register
                   </a>
                 </li>

@@ -13,7 +13,7 @@ function Room({ room }) {
     
       <div className="row bos">
         <div className="col-md-5">
-          <img src={room.imageurls[0]} className="smalling" />
+          <img src={room.imageurls[0]} className="smalling"  alt=""/>
         </div>
         <div className="col-md-7 text-left">
           <h1>{room.name}</h1>
@@ -43,7 +43,7 @@ function Room({ room }) {
             {room.imageurls.map((url) => {
               return (
                 <Carousel.Item>
-                  <img className="bigimg" src={url} />
+                  <img className="bigimg" src={url} alt="" />
                 </Carousel.Item>
               );
             })}
