@@ -6,10 +6,10 @@ import Success from "../components/Success";
 
 
 function Register() {
-  const [name, setname] = useState();
-  const [email, setemail] = useState();
-  const [password, setpassword] = useState();
-  const [cpassword, setcpassword] = useState();
+  const [name, setname] = useState('');
+  const [email, setemail] = useState('');
+  const [password, setpassword] = useState('');
+  const [cpassword, setcpassword] = useState('');
 
   const [loading, setloading] = useState()
   const [error, seterror] = useState()
