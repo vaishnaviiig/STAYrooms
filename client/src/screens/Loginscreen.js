@@ -18,7 +18,7 @@ function LoginScreen() {
     };
 
     try {
-     console.log()
+     
       setloading(true);
       const result = (await axios.post("api/users/login", user)).data;
       setloading(false);
