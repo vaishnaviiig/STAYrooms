@@ -13,11 +13,13 @@ function Bookingscreen({match}) {
 
   const funck =async() =>{
     try {
+      console.log(room.id);
       setloading(true);
       const data = (await axios.post("/api/rooms/getroombyid",{roomid})).data;
       setrooms(data);
       setloading(false);
-    } catch (error) {
+    } 
+    catch (error) {
       
       
       setloading(false);
