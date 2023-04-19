@@ -8,34 +8,62 @@ function Bookingscreen({match}) {
   const [room, setrooms] = useState(true);
   const [loading, setloading] = useState(true);
   const[error, seterror]=useState(false);
-  let {roomid} = useParams();
+
+   let {roomid} = useParams();
    let{fromdate}  = useParams();
    let{todate}  = useParams();
-   
    const firstdate = moment(fromdate , 'DD-MM-YYYY')
    const lastdate = moment(todate , 'DD-MM-YYYY')
    
    const totaldays = moment.duration(lastdate.diff(firstdate)).asDays()+1
-const totalamount = totaldays* room.rentperday;
-  const funck =async() =>{
-    try {
-      
-      setloading(true);
-      const dataa = (await axios.post("/api/rooms/getroombyid",{roomid})).data;
-      setrooms(dataa);
-      setloading(false);
-      
-    } 
-    catch (error) {
-      
-     
+  const [totalamount , settotalamount] = useState();
+
+  const func =async() =>{
+    try{
+    setloading(true);
+    
+     const  data = (await axios.post('/api/rooms/getroombyid', {roomid})).data
+     settotalamount(data.rentperday * totaldays)
+     setrooms(data)
      setloading(false);
-      seterror(true);
     }
+    catch(error)
+    {
+    seterror(true)
+    setloading(false)
+    }  }
+    useEffect( () => {
+      func();
+    },[]);
+    
+  
+const bookRoom =async() =>{
+    
+  const bookingDetails ={
+    room ,
+    userid : JSON.parse(localStorage.getItem('currentUser'))._id,
+    fromdate,
+    todate,
+    totalamount,
+    totaldays,
   }
+  try {
+   const  result = await axios.post('/api/bookings/bookroom', bookingDetails)
+  }
+  catch(error)
+  {
+
+  }  }
   useEffect( () => {
-    funck();
+    bookRoom();
   },[]);
+
+
+
+
+
+
+
   return (
     <div className="m-5">
      
@@ -67,7 +95,7 @@ const totalamount = totaldays* room.rentperday;
                 </b>
             </div>
             <div style={{float: 'right'}}>
-              <button className="btn btn-primary">Pay Now</button>
+              <button className="btn btn-primary" onClick={bookRoom}>Pay Now</button>
             </div>
             </div>
              </div>
