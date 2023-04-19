@@ -3,36 +3,40 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import moment from "moment";
 function Bookingscreen({match}) {
-  const [room, setrooms] = useState();
+  const [room, setrooms] = useState(true);
   const [loading, setloading] = useState(true);
- 
+  const[error, seterror]=useState(false);
   let {roomid} = useParams();
+   let{fromdate}  = useParams();
+   let{todate}  = useParams();
 
- 
+  // const totaldays = moment.duration(todate.diff(fromdate));
 
   const funck =async() =>{
     try {
-      console.log(room.id);
+      
       setloading(true);
-      const data = (await axios.post("/api/rooms/getroombyid",{roomid})).data;
-      setrooms(data);
+      const dataa = (await axios.post("/api/rooms/getroombyid",{roomid})).data;
+      setrooms(dataa);
       setloading(false);
+      
     } 
     catch (error) {
       
-      
-      setloading(false);
      
+     setloading(false);
+      seterror(true);
     }
   }
   useEffect( () => {
     funck();
-  });
+  },[]);
   return (
     <div className="m-5">
      
-      {loading ? ( <h1><Loader/></h1>) : room  ?  (<div>
+      {loading ? ( <h1><Loader/></h1>) : (room  ?  (<div>
 
            <div className="row justify-content-center mt-5 ml-4 bos">
            
@@ -46,8 +50,8 @@ function Bookingscreen({match}) {
               <h1>Booking Details</h1>
               <hr/>
                <p>Name : </p>
-              <p>From Date : </p>
-              <p>To Date : </p>
+              <p>From Date : {fromdate}</p>
+              <p>To Date :{todate}</p>
               <p>Max Count : {room.maxcount}</p>
               </div></b>
               <div style={{textAlign:'right'}}>
@@ -65,7 +69,7 @@ function Bookingscreen({match}) {
             </div>
              </div>
              </div>
-          ) : <Error/>
+          ) : <Error/>)
           }
     </div>
   );

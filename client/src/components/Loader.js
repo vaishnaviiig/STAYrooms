@@ -2,7 +2,7 @@
 import React from "react";
 import HashLoader from "react-spinners/HashLoader";
 function Loader({loading}) {
- //let [loading, setLoading] = useState(true);
+ 
   
       return (
       <div className={{marginTop:'150px'}}>
