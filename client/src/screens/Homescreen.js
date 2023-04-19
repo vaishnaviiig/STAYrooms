@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios";
 import Room from "../components/Kamra"
-
+import moment from "moment";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import { DatePicker, Space } from 'antd';
-
+import { DatePicker } from 'antd';
+import 'antd/dist/reset.css'; 
+import { useParams } from "react-router-dom";
 const { RangePicker } = DatePicker;
 function Homescreen() {
   const [rooms, setrooms] = useState([])
-  const [loading, setloading] = useState()
-  const [error, seterror] = useState()
+  const [loading, setloading] = useState(false)
+  const [error, seterror] = useState(null)
   
+
+ 
+
+function filterByDate(dates) {
+  console.log(dates);
+}
   useEffect(() => {
     trryy();
-  }, []);
+  } , []);
+
     const trryy =async() => {
       try {
         setloading(true);
@@ -23,17 +31,20 @@ function Homescreen() {
         setloading(false);
       } catch (error) {
         seterror(true);
-        console.log(error);
+        console.log(error)
         setloading(false);
       }
     }
+    
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-3">
-        <RangePicker />
+         
+        <RangePicker format='DD-MM-YYYY' onChange={filterByDate} />
         </div>
       </div>
+       
      <div className="row justify-content-center mt-5"> 
         {loading ? (
           <h1><Loader/></h1>) : rooms.length>1 ? (
