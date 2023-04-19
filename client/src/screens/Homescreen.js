@@ -12,13 +12,13 @@ function Homescreen() {
   const [rooms, setrooms] = useState([])
   const [loading, setloading] = useState(false)
   const [error, seterror] = useState(null)
-  
-
+  const [fromdate , setfromdate] = useState()
+  const [todate , settodate] = useState()
  
 
 function filterByDate(dates) {
-  console.log((dates[0].format('DD-MM-YYYY') ))
-  console.log((dates[1].format('DD-MM-YYYY') ))
+  setfromdate((dates[0].format('DD-MM-YYYY') ))
+  settodate((dates[1].format('DD-MM-YYYY') ))
 }
   useEffect(() => {
     trryy();
@@ -51,7 +51,7 @@ function filterByDate(dates) {
           <h1><Loader/></h1>) : rooms.length>1 ? (
             rooms.map((room)  => {
               return <div className="col-md-9 mt-2">
-                <Room room={room}/>
+                <Room room={room} fromdate={fromdate} todate={todate}/>
              </div>
             }) 
         ) : (<h1><Error/></h1>

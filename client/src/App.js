@@ -15,7 +15,7 @@ function App() {
    
    <Routes>
    <Route path='/home' exact element={<Homescreen/>} />
-   <Route path='/book/:roomid' exact element={<Bookingscreen/>} />
+   <Route path='/book/:roomid/:fromdate/:todate' exact element={<Bookingscreen/>} />
    <Route path='/register' exact element={<Register/>} />
    <Route path='/login' exact element={<Loginscreen/>} />
    </Routes>
