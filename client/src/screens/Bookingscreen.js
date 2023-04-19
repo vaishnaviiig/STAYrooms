@@ -11,9 +11,12 @@ function Bookingscreen({match}) {
   let {roomid} = useParams();
    let{fromdate}  = useParams();
    let{todate}  = useParams();
-
-  // const totaldays = moment.duration(todate.diff(fromdate));
-
+   
+   const firstdate = moment(fromdate , 'DD-MM-YYYY')
+   const lastdate = moment(todate , 'DD-MM-YYYY')
+   
+   const totaldays = moment.duration(lastdate.diff(firstdate)).asDays()+1
+const totalamount = totaldays* room.rentperday;
   const funck =async() =>{
     try {
       
@@ -58,9 +61,9 @@ function Bookingscreen({match}) {
                 <h1>Amount : </h1>
                 <hr/>
                 <b>
-                <p> Total Days : </p>
+                <p> Total Days : {totaldays}</p>
                 <p>Rent per day  : {room.rentperday}</p>
-                <p> Total Amount : </p>
+                <p> Total Amount : {totalamount}</p>
                 </b>
             </div>
             <div style={{float: 'right'}}>
