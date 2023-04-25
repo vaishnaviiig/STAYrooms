@@ -4,6 +4,7 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import moment from "moment";
+import StripeCheckout from 'react-stripe-checkout';
 function Bookingscreen({match}) {
   const [room, setrooms] = useState(true);
   const [loading, setloading] = useState(true);
@@ -37,15 +38,17 @@ function Bookingscreen({match}) {
     },[]);
     
   
-const bookRoom =async() =>{
-    
+
+  const onToken =async(token) =>{
+  console.log(token)
   const bookingDetails ={
-    room ,
+    room,
     userid : JSON.parse(localStorage.getItem('currentUser'))._id,
     fromdate,
     todate,
     totalamount,
     totaldays,
+    token,
   }
   try {
    const  result = await axios.post('/api/bookings/bookroom', bookingDetails)
@@ -53,15 +56,12 @@ const bookRoom =async() =>{
   catch(error)
   {
 
-  }  }
-  useEffect( () => {
-    bookRoom();
-  },[]);
+  } 
+}
 
-
-
-
-
+useEffect( () => {
+  onToken();
+},[]);
 
 
   return (
@@ -95,7 +95,16 @@ const bookRoom =async() =>{
                 </b>
             </div>
             <div style={{float: 'right'}}>
-              <button className="btn btn-primary" onClick={bookRoom}>Pay Now</button>
+              
+              <StripeCheckout
+              amount={totalamount * 100}
+                token={onToken}
+                currency = 'INR'
+                stripeKey="pk_test_51N0VxTSCYmjSMYQVRfiRTgH0YZNp6Fgz8Ol9mCszZqX787fNnrTql5BYbi0LpAOV57ZXe3d2V7xGkIpaGEOYj5YM00UQaqvdiv"
+                >
+              
+              <button className="btn btn-primary" > Pay Now{" "}</button>
+              </StripeCheckout>
             </div>
             </div>
              </div>
