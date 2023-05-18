@@ -60,9 +60,9 @@ function Homescreen() {
       console.log(dates[1].format("DD-MM-YYYY"));
     
       //tempRooms
-    /*  var tempRooms = [];
+     var tempRooms = [];
     
-      for (const room of duplicaterooms) {
+      for (let room of duplicaterooms) {
         var availability = false;
     
         if (room.currentBookings.length > 0) {
@@ -72,33 +72,33 @@ function Homescreen() {
               ((moment(moment(dates[0]).format("DD-MM-YYYY")).isBetween(
                 booking.fromdate,
                 booking.todate
-              ) )==false)&&
+              ) )) &&
               ((moment(moment(dates[1]).format("DD-MM-YYYY")).isBetween(
                 booking.fromdate,
                 booking.todate
-              ))==false)
+              )))
             ) {
               
               if (
-                dates[0].format("DD-MM-YYYY") !== booking.fromdate &&
-                dates[0].format("DD-MM-YYYY") !== booking.todate &&
-                dates[1].format("DD-MM-YYYY") !== booking.fromdate &&
-                dates[1].format("DD-MM-YYYY") !== booking.todate
+                (dates[0].format("DD-MM-YYYY") !== booking.fromdate) &&
+                (dates[0].format("DD-MM-YYYY") !== booking.todate) &&
+                (dates[1].format("DD-MM-YYYY") !== booking.fromdate) &&
+                (dates[1].format("DD-MM-YYYY") !== booking.todate)
               ) {
                 availability = true;
               }
             }
           }
         } else {
-          availability = true;
+          availability = false;
         }
     
         if (availability === true) {
           tempRooms.push(room);
-        }*/
-     // }
+        }
+      }
     
-      //setrooms(tempRooms);
+      setrooms(tempRooms);
     }
     useEffect(() => {
       trryy();
@@ -135,7 +135,7 @@ function Homescreen() {
             rooms.map((room) => {
               return (
                 <div className="col-md-9 mt-2">
-                  <Room room={room} fromdate={fromdate} todate={todate} />
+                  <Room room={room} key={room.id} fromdate={fromdate} todate={todate} />
                 </div>
               );
             })

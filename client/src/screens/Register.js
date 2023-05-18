@@ -26,7 +26,7 @@ function Register() {
       }
       try {
         setloading(true)
-        const result = await axios.post('api/users/register', user).data
+        const resultt = await axios.post('api/users/register', user).data
         setloading(false)
         setsuccess(true)
 

@@ -1,5 +1,6 @@
 const Room = require('./model/room')
 const User = require('./model/user')
+const Booking = require('./model/booking')
 const express = require("express");
 const app = express();
 const dbConfig = require("./db");
@@ -11,7 +12,7 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
  });
- app.use(express.json())
+ app.use(express.json({ limit: "100mb" }));
  app.use('/api/rooms', roomroutes)
  app.use('/api/users', usersroutes)
  app.use('/api/bookings', bookingsRoute);

@@ -5,25 +5,26 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import moment from "moment";
 import StripeCheckout from 'react-stripe-checkout';
-function Bookingscreen({match}) {
-  const [room, setrooms] = useState(true);
+function Bookingscreen() {
+  const [room, setrooms] = useState(null);
   const [loading, setloading] = useState(true);
   const[error, seterror]=useState(false);
 
-   let {roomid} = useParams();
-   let{fromdate}  = useParams();
-   let{todate}  = useParams();
+  let {roomid} = useParams();
+   
+let{fromdate}  = useParams();
+  let{todate}  = useParams();
    const firstdate = moment(fromdate , 'DD-MM-YYYY')
    const lastdate = moment(todate , 'DD-MM-YYYY')
    
    const totaldays = moment.duration(lastdate.diff(firstdate)).asDays()+1
-  const [totalamount , settotalamount] = useState();
+  const [totalamount , settotalamount] = useState(0);
 
   const func =async() =>{
     try{
     setloading(true);
     
-     const  data = (await axios.post('/api/rooms/getroombyid', {roomid})).data
+     const  data = (await axios.post('/api/rooms/getroombyid', {roomid : roomid})).data
      settotalamount(data.rentperday * totaldays)
      setrooms(data)
      setloading(false);
@@ -35,7 +36,7 @@ function Bookingscreen({match}) {
     }  }
     useEffect( () => {
       func();
-    },[]);
+    },[roomid, totaldays]);
     
   
 
@@ -52,10 +53,11 @@ function Bookingscreen({match}) {
   }
   try {
    const  result = await axios.post('/api/bookings/bookroom', bookingDetails)
+   console.log(result);
   }
   catch(error)
   {
-
+  console.log(error.response.data);
   } 
 }
 
@@ -100,10 +102,10 @@ useEffect( () => {
               amount={totalamount * 100}
                 token={onToken}
                 currency = 'INR'
-                stripeKey="pk_test_51N0VxTSCYmjSMYQVRfiRTgH0YZNp6Fgz8Ol9mCszZqX787fNnrTql5BYbi0LpAOV57ZXe3d2V7xGkIpaGEOYj5YM00UQaqvdiv"
+                stripeKey='pk_test_51N0VxTSCYmjSMYQVRfiRTgH0YZNp6Fgz8Ol9mCszZqX787fNnrTql5BYbi0LpAOV57ZXe3d2V7xGkIpaGEOYj5YM00UQaqvdiv'
                 >
               
-              <button className="btn btn-primary" > Pay Now{" "}</button>
+              <button className="btn btn-primary" > Pay Now</button>
               </StripeCheckout>
             </div>
             </div>
