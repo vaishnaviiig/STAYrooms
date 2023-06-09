@@ -58,27 +58,21 @@ async function onToken(token){
   }
   try {
     setloading(true);
-    swal.fire('Congratulations', 'Your room Booked successfully','success').then(result=>{
-      window.location.href='/bookings'
-    })
+    swal.fire('Congratulations', 'Your room Booked successfully','success')//.then(result=>{
+     // window.location.href='/Bookingscreen'
+    //})
    async function bookroom(){
    const  result = await axios.post('/api/bookings/bookroom', bookingDetails);
     }
    //setloading(false);
    
-   swal.fire('Congratulations', 'Your room Booked successfully','success');
-  // console.log(result);
+   //swal.fire('Congratulations', 'Your room Booked successfully','success');
+  
   }
   catch(error)
   {
-     /*setloading(false)
-    swal.fire('OOPs', 'Something went wrong','error');
-  */ } 
+    } 
 }
-
-/*useEffect( () => {
-  onToken();
-},[]);*/
 
 
   return (
