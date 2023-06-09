@@ -32,6 +32,6 @@ description:{
 },
     {timestamps:true})
 
-    const roomModel = mongoose.model('Room',roomSchema)
+    const roomModel = mongoose.model('rooms',roomSchema) /// Room
     module
 module.exports = roomModel

@@ -12,3 +12,6 @@ connection.on('connected', ()=>{
 })
 
 module.exports = mongoose;
+
+
+//moongoose is used to connect  nodejs with mongodb

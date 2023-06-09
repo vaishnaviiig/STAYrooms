@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import swal from 'sweetalert2';
 import moment from "moment";
 import StripeCheckout from 'react-stripe-checkout';
 function Bookingscreen() {
@@ -18,6 +19,7 @@ let{fromdate}  = useParams();
    const lastdate = moment(todate , 'DD-MM-YYYY')
    
    const totaldays = moment.duration(lastdate.diff(firstdate)).asDays()+1
+   console.log(totaldays)
   const [totalamount , settotalamount] = useState(0);
 
   const func =async() =>{
@@ -39,9 +41,12 @@ let{fromdate}  = useParams();
     },[roomid, totaldays]);
     
   
-
-  const onToken =async(token) =>{
-  console.log(token)
+//async function bookRoom(){
+ // const onToken =async(token) =>{
+  //console.log(token)
+  
+async function onToken(token){
+  console.log(token);
   const bookingDetails ={
     room,
     userid : JSON.parse(localStorage.getItem('currentUser'))._id,
@@ -49,21 +54,29 @@ let{fromdate}  = useParams();
     todate,
     totalamount,
     totaldays,
-    token,
+    token
   }
   try {
-   const  result = await axios.post('/api/bookings/bookroom', bookingDetails)
-   console.log(result);
+    setloading(true);
+    swal.fire('Congratulations', 'Your room Booked successfully','success').then(result=>{
+      window.location.href='/bookings'
+    })
+   const  result = await axios.post('/api/bookings/bookroom', bookingDetails);
+   //setloading(false);
+   
+   swal.fire('Congratulations', 'Your room Booked successfully','success');
+  // console.log(result);
   }
   catch(error)
   {
-  console.log(error.response.data);
-  } 
+     /*setloading(false)
+    swal.fire('OOPs', 'Something went wrong','error');
+  */ } 
 }
 
-useEffect( () => {
+/*useEffect( () => {
   onToken();
-},[]);
+},[]);*/
 
 
   return (
@@ -102,7 +115,7 @@ useEffect( () => {
               amount={totalamount * 100}
                 token={onToken}
                 currency = 'INR'
-                stripeKey='pk_test_51N0VxTSCYmjSMYQVRfiRTgH0YZNp6Fgz8Ol9mCszZqX787fNnrTql5BYbi0LpAOV57ZXe3d2V7xGkIpaGEOYj5YM00UQaqvdiv'
+                stripeKey='pk_test_51NGJVMSCuia6BPqTtaNx8SsTZDLv1L8GwOrLnj3ZK726vrZ4RruYfrDtWbkgJrp1SlVhJYoWz2TnJeGwftRLXKZi00UbWGRZky'
                 >
               
               <button className="btn btn-primary" > Pay Now</button>

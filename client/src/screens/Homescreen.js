@@ -6,7 +6,7 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import { DatePicker } from "antd";
 import "antd/dist/reset.css";
-//import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 const { RangePicker } = DatePicker;
 function Homescreen() {
   const [rooms, setrooms] = useState([]);
@@ -15,14 +15,16 @@ function Homescreen() {
   const [fromdate, setfromdate] = useState();
   const [todate, settodate] = useState();
   const [duplicaterooms, setduplicaterooms] = useState([]);
-
-  /*function filterByDate(dates) {
+  
+  
+  
+    function filterByDate(dates) {
     setfromdate(dates[0].format("DD-MM-YYYY"));
     settodate(dates[1].format("DD-MM-YYYY"));
     console.log(dates[0].format("DD-MM-YYYY"));
     console.log(dates[1].format("DD-MM-YYYY"));
-
-    var temprooms = [];
+    }
+   /* var temprooms = [];
     var availability = false;
     for (const room of duplicaterooms) {
       if (room.currentbookings.length > 0) {
@@ -53,12 +55,15 @@ function Homescreen() {
         }}
       }
     }*/
-    function filterByDate(dates) {
+   /* function filterByDate(dates) {
+      console.log(dates);
+      console.log(dates[0].format("DD-MM-YYYY"));
+      console.log(dates[1].format("DD-MM-YYYY"));
       setfromdate(dates[0].format("DD-MM-YYYY"));
       settodate(dates[1].format("DD-MM-YYYY"));
       console.log(dates[0].format("DD-MM-YYYY"));
       console.log(dates[1].format("DD-MM-YYYY"));
-    
+     
       //tempRooms
      var tempRooms = [];
     
@@ -99,7 +104,7 @@ function Homescreen() {
       }
     
       setrooms(tempRooms);
-    }
+    }*/
     useEffect(() => {
       trryy();
     }, []);
@@ -120,8 +125,8 @@ function Homescreen() {
 
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-md-3">
+        <div className="row mt-5 bos">
+          <div className="col-md-3 range">
             <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
           </div>
         </div>

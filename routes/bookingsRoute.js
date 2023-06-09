@@ -6,7 +6,7 @@ const Room = require("../model/room");
 const { v4: uuidv4 } = require("uuid");
 
 const stripe = require("stripe")
-("sk_test_51N0VxTSCYmjSMYQVZcK9KwEvYyxXlbc6swK0mLtqrhIFh6m4zvfd6UZsYjQZO85AoSLwFwWpUi5ieIlxwz0FY9Je00BKH7D2pk");
+('sk_test_51NGJVMSCuia6BPqTRqCaP7fTJKddfYy0PIudi1Rp8DDasS7y0WK0rK7yt7TywRLhguCT8oWfUo4Mej8NckfGuFZb00QjNilTEc');
 router.post("/bookroom", async (req, res) => {
   const { room, userid, todate, fromdate, totalamount, totaldays, token } = req.body;
 
@@ -15,7 +15,7 @@ router.post("/bookroom", async (req, res) => {
       email: token.email,
       source: token.id,
     })
-
+     
     const payment = await stripe.charges.create(
       {
         amount: totalamount * 100,
@@ -34,12 +34,12 @@ router.post("/bookroom", async (req, res) => {
           room: room.name,
           roomid: room._id,
           userid,
-          fromdate,
-          todate,
+          fromdate: moment(fromdate, "DD-MM-YYYY"),
+          todate: moment(todate, "DD-MM-YYYY"),
           totalamount,
           totaldays,
           transactionId: "12345",
-        })
+        });
         const booking = await newbooking.save();
         const roomtemp = await Room.findOne({ _id: room._id });
         roomtemp.currentbookings.push({
@@ -48,16 +48,16 @@ router.post("/bookroom", async (req, res) => {
           todate: moment(todate, "DD-MM-YYYY"),
           userid: userid,
           status: booking.status,
-        }),
+        });
           await roomtemp.save();
-
+         res.send("Room Booked successfully");
         
-      
-      
-    }
-    res.send("Payment Successfull, Your room is booked.");
-  } catch (error) {
-    return res.status(400).json({ error });
-  }
+   
+   }
+  res.send("Payment Successfull, Your room is booked.");
+
+}
+catch (error) {
+  return res.status(400).json({ error });}
 });
 module.exports = router;
