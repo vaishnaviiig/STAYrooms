@@ -61,7 +61,9 @@ async function onToken(token){
     swal.fire('Congratulations', 'Your room Booked successfully','success').then(result=>{
       window.location.href='/bookings'
     })
+   async function bookroom(){
    const  result = await axios.post('/api/bookings/bookroom', bookingDetails);
+    }
    //setloading(false);
    
    swal.fire('Congratulations', 'Your room Booked successfully','success');

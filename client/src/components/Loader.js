@@ -5,10 +5,10 @@ function Loader({loading}) {
  
   
       return (
-      <div className={{marginTop:'150px'}}>
+      <div className= {{paddingTop:'150px' ,paddingLeft:'50px'}}>
       <div className="sweet-loading ">
       
-
+<div className="aww">
       <HashLoader 
         color='#000000'
         loading={loading}
@@ -16,6 +16,7 @@ function Loader({loading}) {
         size={80}
        
       />
+      </div>
     </div></div>
     
   );
